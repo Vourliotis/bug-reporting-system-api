@@ -8,7 +8,9 @@
 
 User.delete_all
 
+user = User.create! email: 'admin@admin.com', password: 'admin', role: 3
+puts "Created user: #{user.email}"
 5.times do
-  user = User.create! email: Faker::Internet.email, password: 'password'
+  user = User.create! email: Faker::Internet.email, password: 'password', role: rand(0..2)
   puts "Created user: #{user.email}"
 end
