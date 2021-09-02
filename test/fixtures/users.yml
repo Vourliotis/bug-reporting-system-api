@@ -2,8 +2,10 @@
 
 one:
   email: reporter@bug.com
-  password_digest: hashed_password
+  password_digest: <%=BCrypt::Password.create('p@$$') %>
+  role: 3
 
 two:
   email: qa@bug.com
-  password_digest: hashed_password
+  password_digest: <%=BCrypt::Password.create('p@$$') %>
+  role: 1
