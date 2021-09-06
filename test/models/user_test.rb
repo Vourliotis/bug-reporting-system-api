@@ -17,9 +17,22 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
   end
 
-  test 'destroy user should destroy linked product' do
+  test 'destroy user should destroy linked bug' do
     assert_difference('Bug.count', -1) do
       users(:one).destroy
     end
+  end
+
+  test 'user with invalid role should be invalid' do
+    user = users(:one)
+    assert_raises ArgumentError do
+      user.role = -1
+    end
+  end
+
+  test 'user with valid role should be valid' do
+    user = users(:one)
+    user.role = 1
+    assert user.valid?
   end
 end
