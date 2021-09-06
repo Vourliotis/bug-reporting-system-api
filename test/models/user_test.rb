@@ -16,4 +16,10 @@ class UserTest < ActiveSupport::TestCase
     user = User.new(email: other_user.email, password_digest: 'password')
     assert_not user.valid?
   end
+
+  test 'destroy user should destroy linked product' do
+    assert_difference('Bug.count', -1) do
+      users(:one).destroy
+    end
+  end
 end

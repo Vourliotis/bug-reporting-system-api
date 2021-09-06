@@ -4,4 +4,5 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
   has_secure_password
   enum role: { qa: 0, po: 1, dev: 2, admin: 3 }
+  has_many :bugs, dependent: :destroy
 end

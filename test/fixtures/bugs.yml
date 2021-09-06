@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: SuperBug
+  description: Mysterious Bug
+  priority: 1
+  status: 1
+  comments: Found a workaround. Testing now.
+  user: one
+
+two:
+  title: MyString
+  description: MyString
+  priority: 1
+  status: 1
+  comments: MyString
+  user: two
