@@ -4,17 +4,18 @@ class Api::V1::BugsController < ApplicationController
   before_action :check_owner, only: %i[update destroy]
 
   def index
-    render json: Bug.all
+    @bugs = Bug.all
+    render json: BugSerializer.new(@bugs).serializable_hash.to_json
   end
 
   def show
-    render json: @bug
+    render json: BugSerializer.new(@bug).serializable_hash.to_json
   end
 
   def create
     bug = current_user.bugs.build(bug_params)
     if bug.save
-      render json: bug, status: :created
+      render json: BugSerializer.new(bug).serializable_hash.to_json, status: :created
     else
       render json: { errors: bug.errors }, status: :unprocessable_entity
     end
@@ -22,7 +23,7 @@ class Api::V1::BugsController < ApplicationController
 
   def update
     if @bug.update(bug_params)
-      render json: @bug
+      render json: BugSerializer.new(@bug).serializable_hash.to_json
     else
       render json: @bug.errors, status: :unprocessable_entity
     end

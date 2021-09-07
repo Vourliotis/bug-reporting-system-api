@@ -15,10 +15,10 @@ class Api::V1::BugsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     json_response = JSON.parse(response.body)
-    assert_equal @bug.title, json_response['title']
+    assert_equal @bug.title, json_response['data']['attributes']['title']
   end
 
-  test ' create bug' do
+  test 'should create bug' do
     assert_difference('Bug.count') do
       post api_v1_bugs_url,
            params: { bug: { title: @bug.title, description: @bug.description, priority: @bug.priority,
