@@ -5,6 +5,9 @@ class Api::V1::BugsController < ApplicationController
 
   def index
     @bugs = Bug.all
+    if params[:title]
+      @bugs = Bug.filter_by_title(params[:title])
+    end
     render json: BugSerializer.new(@bugs).serializable_hash.to_json
   end
 

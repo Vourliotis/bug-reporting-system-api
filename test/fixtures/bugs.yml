@@ -1,17 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: SuperBug
+  title: Fatal Error
   description: Mysterious Bug
-  priority: 1
+  priority: 2
   status: 1
   comments: Found a workaround. Testing now.
   user: one
 
 two:
-  title: MyString
-  description: MyString
-  priority: 1
+  title: Mega Bug
+  description: Some weird bug
+  priority: 2
+  status: 0
+  comments: The root of the problem lies in the controller.
+  user: two
+
+another_bug:
+  title: Simple Bug
+  description: Typo in a print
+  priority: 0
   status: 1
-  comments: MyString
+  comments:
   user: two

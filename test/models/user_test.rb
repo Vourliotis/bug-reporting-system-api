@@ -35,4 +35,8 @@ class UserTest < ActiveSupport::TestCase
     user.role = 1
     assert user.valid?
   end
+  
+  test 'should filer users by role' do
+    assert_equal [users(:one)], User.equal_to_role(3)
+  end
 end

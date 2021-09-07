@@ -26,4 +26,20 @@ class BugTest < ActiveSupport::TestCase
     bug.status = 1
     assert bug.valid?
   end
+  
+  test 'should filter bugs by title' do
+    assert_equal 1, Bug.filter_by_title('simple').count
+  end
+  
+  test 'should filter bugs by priority' do
+    assert_equal [bugs(:another_bug)], Bug.equal_to_priority(0)
+  end
+  
+  test 'should filter bugs by status' do
+    assert_equal [bugs(:two)], Bug.equal_to_status(0)
+  end
+  
+  test 'should filter bugs by reporter' do
+    assert_equal [bugs(:one)], Bug.equal_to_reporter(3)
+  end
 end

@@ -5,4 +5,8 @@ class User < ApplicationRecord
   has_secure_password
   enum role: { qa: 0, po: 1, dev: 2, admin: 3 }
   has_many :bugs, dependent: :destroy
+
+  scope :equal_to_role, lambda { |role| 
+    where('role = ?', role)
+  }
 end
