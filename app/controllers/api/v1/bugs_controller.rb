@@ -4,10 +4,7 @@ class Api::V1::BugsController < ApplicationController
   before_action :check_owner, only: %i[update destroy]
 
   def index
-    @bugs = Bug.all
-    if params[:title]
-      @bugs = Bug.filter_by_title(params[:title])
-    end
+    @bugs = Bug.search(params)
     render json: BugSerializer.new(@bugs).serializable_hash.to_json
   end
 

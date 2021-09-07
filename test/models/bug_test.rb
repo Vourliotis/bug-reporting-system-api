@@ -50,4 +50,33 @@ class BugTest < ActiveSupport::TestCase
   test 'should sort bugs by title descending' do
     assert_equal [bugs(:another_bug), bugs(:two), bugs(:one)], Bug.sorted('title', 'desc').to_a
   end
+  
+  test 'search should not find bug and po as a result' do
+    search_hash = { title: 'bug', reporter: 2}
+    assert Bug.search(search_hash).empty?
+  end
+  
+  test 'search should find bug with rejected status' do
+    search_hash = { title: 'bug', status: 1}
+    assert_equal [bugs(:another_bug)], Bug.search(search_hash)
+  end
+  
+  test 'should get all bugs when no parameters' do
+    assert_equal Bug.all.to_a, Bug.search({})
+  end
+  
+  test 'search should filter by bug ids' do
+    search_hash = { bug_ids: [bugs(:one).id] }
+    assert_equal [bugs(:one)], Bug.search(search_hash)
+  end
+  
+  test 'search should order bugs by descending title' do
+    search_hash = { sort: 'title,desc' }
+    assert_equal [bugs(:another_bug), bugs(:two), bugs(:one)], Bug.search(search_hash)
+  end
+  
+  test 'search should order bugs by ascending title' do
+    search_hash = { sort: 'title' }
+    assert_equal [bugs(:one), bugs(:two), bugs(:another_bug)], Bug.search(search_hash)
+  end
 end
