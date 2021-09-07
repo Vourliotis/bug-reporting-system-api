@@ -3,7 +3,8 @@ class Api::V1::UsersController < ApplicationController
   before_action :check_owner, only: %i[update destroy]
 
   def index
-    render json: User.all
+    @users = User.all
+    render json: UserSerializer.new(@users).serializable_hash.to_json
   end
 
   def show

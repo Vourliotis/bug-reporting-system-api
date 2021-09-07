@@ -14,8 +14,10 @@ class Api::V1::BugsControllerTest < ActionDispatch::IntegrationTest
     get api_v1_bug_url(@bug), as: :json
     assert_response :success
 
-    json_response = JSON.parse(response.body)
-    assert_equal @bug.title, json_response['data']['attributes']['title']
+    json_response = JSON.parse(response.body, symbolize_names: true)
+    assert_equal @bug.title, json_response.dig(:data, :attributes, :title)
+    assert_equal @bug.user.id.to_s, json_response.dig(:data, :relationships, :user, :data, :id)
+    assert_equal @bug.user.email, json_response.dig(:included, 0, :attributes, :email)
   end
 
   test 'should create bug' do

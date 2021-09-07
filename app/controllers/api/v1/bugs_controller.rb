@@ -9,7 +9,8 @@ class Api::V1::BugsController < ApplicationController
   end
 
   def show
-    render json: BugSerializer.new(@bug).serializable_hash.to_json
+    options = { include: [:user] }
+    render json: BugSerializer.new(@bug, options).serializable_hash.to_json
   end
 
   def create
