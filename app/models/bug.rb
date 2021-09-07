@@ -19,4 +19,8 @@ class Bug < ApplicationRecord
   scope :equal_to_reporter, lambda { |reporter| 
     where('user_id = ?', User.equal_to_role(reporter).ids)
   }
+  
+  scope :sorted, lambda { |field, order| 
+    order(field + " " + order)
+  }
 end

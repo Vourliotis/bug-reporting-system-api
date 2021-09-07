@@ -42,4 +42,12 @@ class BugTest < ActiveSupport::TestCase
   test 'should filter bugs by reporter' do
     assert_equal [bugs(:one)], Bug.equal_to_reporter(3)
   end
+  
+  test 'should sort bugs by title ascending' do
+    assert_equal [bugs(:one), bugs(:two), bugs(:another_bug)], Bug.sorted('title', 'asc').to_a
+  end
+  
+  test 'should sort bugs by title descending' do
+    assert_equal [bugs(:another_bug), bugs(:two), bugs(:one)], Bug.sorted('title', 'desc').to_a
+  end
 end
