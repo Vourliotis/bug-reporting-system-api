@@ -1,11 +1,18 @@
 class Api::V1::BugsController < ApplicationController
+  include Paginable
   before_action :find_bug, only: %i[show update destroy]
   before_action :check_login, only: %i[create]
   before_action :check_owner, only: %i[update destroy]
 
   def index
-    @bugs = Bug.search(params)
-    options = { include: [:user] }
+    @bugs = Bug.page(params[:page]).per(params[:size]).search(params)
+    options = { include: [:user],
+                links: {
+                  first: api_v1_bugs_path(page: 1),
+                  last: api_v1_bugs_path(page: @bugs.total_pages),
+                  prev: api_v1_bugs_path(page: @bugs.prev_page),
+                  next: api_v1_bugs_path(page: @bugs.next_page)
+                } }
     render json: BugSerializer.new(@bugs, options).serializable_hash.to_json
   end
 

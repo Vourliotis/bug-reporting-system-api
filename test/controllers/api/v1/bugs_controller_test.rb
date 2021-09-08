@@ -8,6 +8,12 @@ class Api::V1::BugsControllerTest < ActionDispatch::IntegrationTest
   test 'should index bugs' do
     get api_v1_bugs_url, as: :json
     assert_response :success
+
+    json_response = JSON.parse(response.body, symbolize_names: true)
+    assert json_response.dig(:links, :first) != nil
+    assert json_response.dig(:links, :last) != nil
+    assert json_response.dig(:links, :prev) != nil
+    assert json_response.dig(:links, :next) != nil
   end
 
   test 'should show bug by id' do
