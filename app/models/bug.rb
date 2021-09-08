@@ -25,7 +25,11 @@ class Bug < ApplicationRecord
   }
 
   scope :equal_to_reporter, lambda { |reporter|
-    where('user_id = ?', User.equal_to_role(reporter).ids)
+    if check_integer reporter
+      where(user_id: User.equal_to_role(reporter).ids)
+    else
+      where(user_id: User.equal_to_role(User.roles[reporter]).ids)
+    end
   }
 
   scope :sorted, lambda { |field, order = 'asc'|
@@ -37,7 +41,7 @@ class Bug < ApplicationRecord
     bugs = bugs.filter_by_title(params[:title]) if params[:title]
     bugs = bugs.equal_to_priority(params[:priority]) if params[:priority]
     bugs = bugs.equal_to_status(params[:status]) if params[:status]
-    bugs = bugs.equal_to_reporter(params[:reporter].to_f) if params[:reporter]
+    bugs = bugs.equal_to_reporter(params[:reporter]) if params[:reporter]
     if params[:sort]
       sort_params = params[:sort].to_s.split(',')
       bugs = bugs.sorted(*sort_params)

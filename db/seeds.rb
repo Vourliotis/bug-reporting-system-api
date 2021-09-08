@@ -16,7 +16,7 @@ puts "Created user: #{user.email}"
   puts "Created user: #{user.email}"
 end
 
-5.times do
+10.times do
   bug = Bug.create! title: Faker::Lorem.word, description: Faker::Lorem.sentence, priority: rand(0..2),
                     status: rand(0..2), comments: Faker::Lorem.sentence, user: User.order(Arel.sql('RANDOM()')).first
   puts "Created bug: #{bug.title}"

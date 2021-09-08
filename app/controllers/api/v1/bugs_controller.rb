@@ -5,7 +5,8 @@ class Api::V1::BugsController < ApplicationController
 
   def index
     @bugs = Bug.search(params)
-    render json: BugSerializer.new(@bugs).serializable_hash.to_json
+    options = { include: [:user] }
+    render json: BugSerializer.new(@bugs, options).serializable_hash.to_json
   end
 
   def show
