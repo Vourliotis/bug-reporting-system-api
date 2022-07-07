@@ -40,7 +40,7 @@ gem 'bcrypt', '~> 3.1'
 
 gem 'faker', '~> 2.19'
 
-gem 'jwt', '~> 2.2'
+gem 'jwt', '~> 2.4'
 
 gem 'jsonapi-serializer', '~> 2.2'
 
