@@ -38,7 +38,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'bcrypt', '~> 3.1'
 
-gem 'faker', '~> 2.19'
+gem 'faker', '~> 2.21'
 
 gem 'jwt', '~> 2.4'
 
